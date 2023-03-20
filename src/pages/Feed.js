@@ -1,10 +1,12 @@
 import React from "react";
 import PostList from "../components/Post/PostList";
-import CommentList from "../components/Comment/CommentList";
+import { useSelector } from "react-redux";
 const Feed = () => {
+  const posts = useSelector((state) => state.posts.posts);
+
   return (
     <div>
-        <PostList />
+      <PostList posts={posts} />
     </div>
   );
 };

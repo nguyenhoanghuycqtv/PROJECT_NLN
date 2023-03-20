@@ -8,6 +8,7 @@ import { getAllCommentData } from "./app/store/comments-actions";
 import Root from "./pages/Root";
 import Auth from "./pages/Auth";
 import Feed from "./pages/Feed";
+import User from "./pages/User";
 function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -32,8 +33,9 @@ function App() {
       element: <Root />,
       children: [
         { index: true, element: <Feed /> },
+        { path: "users", children: [{ path: ":id", element: <User /> }] },
         // { path: "/test", element: <UserTableItem /> },
-        { path: "/auth", element: <Auth /> },
+        { path: "auth", element: <Auth /> },
       ],
     },
   ]);

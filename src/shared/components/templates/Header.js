@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../../app/store/auth-slice";
 import { Link } from "react-router-dom";
 import Avatar from "../UI/Avatar";
-const MainHeader = () => {
+const Header = () => {
   const [user, setUser] = useState();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
@@ -22,22 +22,6 @@ const MainHeader = () => {
   return (
     <div className="navbar bg-[#148c94]">
       <div className="flex-1">
-        <div className="dropdown">
-          <label tabIndex={0} className="btn m-1">
-            Click
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 2</a>
-            </li>
-          </ul>
-        </div>
         <Link to="/">
           <span className="text-bold text-4xl text-[#fc9434]">HOME</span>
         </Link>
@@ -86,4 +70,4 @@ const MainHeader = () => {
   );
 };
 
-export default MainHeader;
+export default Header;

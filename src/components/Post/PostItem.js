@@ -2,14 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CommentList from "../Comment/CommentList";
 import UserList from "../User/UserList";
-let isInitial = true;
 const PostItem = (props) => {
   const comments = useSelector((state) => state.comments.comments);
   const users = useSelector((state) => state.users.users);
-
-  console.log(users);
   return (
-    <div className="card w-9/12 glass mt-4">
+    <div className='card w-9/12'>
       <div>
         <UserList
           users={users.filter((user) => user.id === props.post.creator.id)}

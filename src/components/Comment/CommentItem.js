@@ -2,7 +2,7 @@ import React from "react";
 
 const CommentItem = (props) => {
   return (
-    <div className="card w-12/12 glass">
+    <div className="card w-12/12">
       <div className="flex p-4 border-b border-gray-200">
         <div className="mr-4 flex-shrink-0">
           <img
