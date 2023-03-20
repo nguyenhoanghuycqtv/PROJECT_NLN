@@ -6,7 +6,12 @@ const UserList = (props) => {
       {props.users.map((user) => {
         return (
           <li key={user.id}>
-            <UserItem image={user.image} name={user.name} email={user.email} />
+            <UserItem
+              id={user.id}
+              image={user.image}
+              name={user.name}
+              email={user.email}
+            />
           </li>
         );
       })}

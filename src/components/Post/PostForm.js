@@ -22,14 +22,14 @@ const PostForm = (props) => {
     reset: resetContent,
   } = useInput();
 
-  const submitHandler = (event) => {
+  const formSubmitHandler = (event) => {
     event.preventDefault();
-    props.dataInput(file.value, enteredTitle, enteredContent);
+    props.postFormDataInput(file.value, enteredTitle, enteredContent);
   };
 
   return (
     <div className="card bg-red-600">
-      <form onSubmit={submitHandler} className="py-6 m-4">
+      <form onSubmit={formSubmitHandler} className="py-6 m-4">
         <div className="mb-4">
           <ImageUpload id="image" onInput={handleFileUpload} />
         </div>

@@ -15,11 +15,13 @@ export const getAllPostData = () => {
   };
 };
 
-export const postPosts = (data, token) => {
+export const postPost = (data, token) => {
   return async (dispatch) => {
     const sendRequest = async () => {
       const res = await axios.post("http://localhost:5000/api/posts/", data, {
-        headers: { Authorization: "Bearer " + token },
+        headers: {
+          Authorization: "Bearer " + token
+        },
       });
       const resData = res.data;
       return resData;
