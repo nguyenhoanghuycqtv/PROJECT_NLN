@@ -1,5 +1,6 @@
 import axios from "axios";
 import { authActions } from "./auth-slice";
+import { useNavigate } from "react-router-dom";
 export const loginHandler = (data) => {
   return async (dispatch) => {
     const sendRequest = async () => {
@@ -20,6 +21,7 @@ export const loginHandler = (data) => {
           image: resData.image,
         })
       );
+        
     } catch (err) {}
   };
 };

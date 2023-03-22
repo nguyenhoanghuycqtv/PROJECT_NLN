@@ -3,6 +3,7 @@ import { loginHandler, signupHandler } from "../app/store/auth-actions";
 import { useDispatch, useSelector } from "react-redux";
 import useInput from "../shared/hooks/use-input";
 import ImageUpload from "../shared/components/form/ImageUpload";
+import { useNavigate } from "react-router-dom";
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [file, setFile] = useState({ value: null });
@@ -11,6 +12,7 @@ const Auth = () => {
     const imageUploaded = { value: pickedFile };
     setFile(imageUploaded);
   };
+  const navigate = useNavigate();
 
   const switchHandler = () => {
     setIsLogin((prev) => !prev);
@@ -39,6 +41,7 @@ const Auth = () => {
       try {
         const data = { email: enteredEmail, password: enteredPassword };
         dispatch(loginHandler(data));
+        navigate("/");
       } catch (err) {
         console.log(err);
       }
@@ -50,6 +53,7 @@ const Auth = () => {
         formData.append("email", enteredEmail);
         formData.append("password", enteredPassword);
         dispatch(signupHandler(formData));
+        navigate("/");
       } catch (err) {}
     }
   };

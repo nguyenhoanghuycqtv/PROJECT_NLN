@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ImageUpload from "../../shared/components/form/ImageUpload";
 import useInput from "../../shared/hooks/use-input";
+import { postPost } from "../../app/store/posts-actions";
 
 const PostForm = (props) => {
+  const navigate = useNavigate();
   const [file, setFile] = useState({ value: null });
-
+  const { userId, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const handleFileUpload = (pickedFile) => {
     const imageUploaded = { value: pickedFile };
     setFile(imageUploaded);
   };
-
   const {
     value: enteredTitle,
     valueChangeHandler: titleChangeHandler,
@@ -22,14 +26,23 @@ const PostForm = (props) => {
     reset: resetContent,
   } = useInput();
 
-  const formSubmitHandler = (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
-    props.postFormDataInput(file.value, enteredTitle, enteredContent);
+    // props.dataInput(file.value, enteredTitle, enteredContent);
+    const formData = new FormData();
+    formData.append("image", file.value);
+    formData.append("title", enteredTitle);
+    formData.append("content", enteredContent);
+    formData.append("creator", userId);
+    // console.log(token);
+    dispatch(postPost(formData, token));
+
+    navigate(`/users/${props.userId}`);
   };
 
   return (
     <div className="card bg-red-600">
-      <form onSubmit={formSubmitHandler} className="py-6 m-4">
+      <form onSubmit={submitHandler} className="py-6 m-4">
         <div className="mb-4">
           <ImageUpload id="image" onInput={handleFileUpload} />
         </div>

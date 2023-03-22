@@ -1,17 +1,33 @@
 import useInput from "../../shared/hooks/use-input";
 import { useSelector, useDispatch } from "react-redux";
 import { postComment } from "../../app/store/comments-actions";
+import { socket } from "../../socket";
+import { useEffect } from "react";
+import { commentsAcions } from "../../app/store/comments-slice";
 const CommentForm = (props) => {
+  const { userId, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const {
     value: commentEntered,
     valueChangeHandler: commentChangeHandler,
     reset: resetComment,
   } = useInput();
 
+  // useEffect(() => {
+  //   socket.on("createComment", (commentCreated) =>
+  //     dispatch(commentsAcions.addComment(commentCreated))
+  //   );
+  //   return () => socket.off("createComment");
+  // }, []);
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(event)
-    props.commentFormDataInput(commentEntered);
+    const data = {
+      content: commentEntered,
+      creator: userId,
+      location: props.postId,
+    };
+    dispatch(postComment(data));
+    // postComment(data, token);
   };
 
   return (

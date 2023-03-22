@@ -9,7 +9,7 @@ const commentsSlice = createSlice({
   initialState: initialCommentsState,
   reducers: {
     addComment(state, action) {
-      state.comments = state.comments.push(action.payload);
+      state.comments.push(action.payload);
     },
     getAllComment(state, action) {
       state.comments = action.payload;
