@@ -4,9 +4,8 @@ import { postComment } from "../../app/store/comments-actions";
 import { socket } from "../../socket";
 import { useEffect } from "react";
 import { commentsAcions } from "../../app/store/comments-slice";
+import { useNavigate } from "react-router-dom";
 const CommentForm = (props) => {
-  const { userId, token } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const {
     value: commentEntered,
     valueChangeHandler: commentChangeHandler,
@@ -21,12 +20,8 @@ const CommentForm = (props) => {
   // }, []);
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    const data = {
-      content: commentEntered,
-      creator: userId,
-      location: props.postId,
-    };
-    dispatch(postComment(data));
+    // dispatch(postComment(data));
+    props.submitHandler(commentEntered);
     // postComment(data, token);
   };
 

@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { socket } from "../../socket";
 import { commentsAcions } from "../../app/store/comments-slice";
 const PostList = (props) => {
-  const comments = useSelector((state) => state.comments.comments);
   const dispatch = useDispatch();
 
   return (
@@ -18,13 +17,7 @@ const PostList = (props) => {
               image={post.image}
               title={post.title}
               content={post.content}
-              comments={comments.filter(
-                (comment) => comment.location.id === post.id
-              )}
-            />
-            <CommentForm
               postId={post.id}
-              postFormDataInput={props.postFormDataInput}
             />
           </li>
         );

@@ -11,6 +11,7 @@ import Root from "./pages/Root";
 import Auth from "./pages/Auth";
 import Feed from "./pages/Feed";
 import User from "./pages/User";
+import PostDetail from "./pages/PostDetail";
 function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -38,6 +39,7 @@ function App() {
       children: [
         { index: true, element: <Feed /> },
         { path: "users", children: [{ path: ":id", element: <User /> }] },
+        { path: "posts", children: [{ path: ":id", element: <PostDetail /> }] },
         { path: "auth", element: <Auth /> },
       ],
     },

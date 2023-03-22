@@ -6,16 +6,19 @@ let isInitial = true;
 const CommentList = (props) => {
   return (
     <ul>
-      {props.comments.map((comment) => (
-        <li key={comment.id}>
-          <CommentItem
-            name={comment.creator.name}
-            email={comment.creator.email}
-            image={comment.creator.image}
-            content={comment.content}
-          />
-        </li>
-      ))}
+      {props.comments
+        .slice()
+        .reverse()
+        .map((comment) => (
+          <li key={comment.id}>
+            <CommentItem
+              name={comment.creator.name}
+              email={comment.creator.email}
+              image={comment.creator.image}
+              content={comment.content}
+            />
+          </li>
+        ))}
     </ul>
   );
 };
