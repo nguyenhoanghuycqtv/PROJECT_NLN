@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CommentItem from "./CommentItem";
 import { getAllCommentData } from "../../app/store/comments-actions";
-let isInitial = true;
+
 const CommentList = (props) => {
   return (
     <ul>
       {props.comments
+        // .filter((comment) => comment.location.id === props.postId)
         .slice()
         .reverse()
         .map((comment) => (

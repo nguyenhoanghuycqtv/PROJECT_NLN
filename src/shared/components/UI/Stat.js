@@ -44,8 +44,8 @@ const Stat = (props) => {
             />
           </svg>
         </div>
-        <div className="stat-title">Total Comments</div>
-        <div className="stat-value text-secondary">{props.comments.length}</div>
+        {/* <div className="stat-title">Total Comments</div>
+        <div className="stat-value text-secondary">{props.posts.comments.length}</div> */}
         {/* <div className="stat-desc">21% more than last month</div> */}
       </div>
 

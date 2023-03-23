@@ -14,15 +14,10 @@ import User from "./pages/User";
 import PostDetail from "./pages/PostDetail";
 function App() {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const userId = useSelector((state) => state.auth.userId);
-  const posts = useSelector((state) => state.posts.posts);
-  const comments = useSelector((state) => state.comments.comments);
-
   useEffect(() => {
     dispatch(getAllUserData());
-    dispatch(getAllPostData());
-    dispatch(getAllCommentData());
+    // dispatch(getAllPostData());
+    // dispatch(getAllCommentData());
   }, []);
 
   useEffect(() => {
@@ -39,7 +34,7 @@ function App() {
       children: [
         { index: true, element: <Feed /> },
         { path: "users", children: [{ path: ":id", element: <User /> }] },
-        { path: "posts", children: [{ path: ":id", element: <PostDetail /> }] },
+        { path: "posts", children: [{ path: ":postId", element: <PostDetail /> }] },
         { path: "auth", element: <Auth /> },
       ],
     },

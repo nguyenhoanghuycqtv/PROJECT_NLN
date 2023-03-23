@@ -16,11 +16,30 @@ export const getAllCommentData = () => {
   };
 };
 
-export const postComment = (data, token) => {
+export const getAllCommentDataByPostId = (postId) => {
+  return async (dispatch) => {
+    const sendRequest = async () => {
+      const res = await axios.get(
+        `http://localhost:5000/api/comments/${postId}`
+      );
+      const resData = res.data;
+      return resData;
+    };
+    try {
+      const resData = await sendRequest();
+      console.log(resData)
+      const comments = resData.comments;
+      // console.log("Comments from action post", comments);
+      dispatch(commentsAcions.getAllComment(comments));
+    } catch (err) {}
+  };
+};
+
+export const postComment = (data, token, postId) => {
   return async (dispatch) => {
     const sendRequest = async () => {
       const res = await axios.post(
-        "http://localhost:5000/api/comments/",
+        `http://localhost:5000/api/comments/${postId}`,
         data,
         {
           headers: {
@@ -35,10 +54,7 @@ export const postComment = (data, token) => {
     try {
       const resData = await sendRequest();
       const comment = resData.comment;
-      // socket.on("createComment", (data) => {
-      //   dispatch(commentsAcions.addComment(data));
-      // });
-      // return () => socket.off("createComment");
+      console.log("Comment from Comments Actions", comment);
       dispatch(commentsAcions.addComment(comment));
     } catch (err) {}
   };

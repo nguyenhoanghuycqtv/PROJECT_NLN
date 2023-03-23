@@ -26,23 +26,14 @@ const PostForm = (props) => {
     reset: resetContent,
   } = useInput();
 
-  const submitHandler = (event) => {
+  const formSubmitHandler = (event) => {
     event.preventDefault();
-    // props.dataInput(file.value, enteredTitle, enteredContent);
-    const formData = new FormData();
-    formData.append("image", file.value);
-    formData.append("title", enteredTitle);
-    formData.append("content", enteredContent);
-    formData.append("creator", userId);
-    // console.log(token);
-    dispatch(postPost(formData, token));
-
-    navigate(`/users/${props.userId}`);
+    props.submitHandler(file.value, enteredTitle, enteredContent, userId);
   };
 
   return (
     <div className="card bg-red-600">
-      <form onSubmit={submitHandler} className="py-6 m-4">
+      <form onSubmit={formSubmitHandler} className="py-6 m-4">
         <div className="mb-4">
           <ImageUpload id="image" onInput={handleFileUpload} />
         </div>

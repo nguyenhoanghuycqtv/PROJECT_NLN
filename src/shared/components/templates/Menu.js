@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../../app/store/auth-slice";
 
 const Menu = () => {
   const [userId, setUser] = useState();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    dispatch(authActions.logout());
+    navigate('/')
+  };
   useEffect(() => {
     if (localStorage.getItem("userData") !== null && isLoggedIn) {
       const { userId } = JSON.parse(localStorage.getItem("userData"));
@@ -39,16 +45,16 @@ const Menu = () => {
           Home
         </NavLink>
       </li>
-      {isLoggedIn && userId && (
+      {!isLoggedIn && (
         <li>
           <NavLink
-            to={`/users/${userId}`}
+            to="/auth"
             className={({ isActive }) => {
               return isActive ? "active" : "";
             }}
           >
             <svg
-            className="w-8"
+              className="w-8"
               fill="none"
               stroke="currentColor"
               strokeWidth={1.5}
@@ -59,12 +65,66 @@ const Menu = () => {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"
               />
             </svg>
-            Me
+            Login
           </NavLink>
         </li>
+      )}
+      {isLoggedIn && userId && (
+        <React.Fragment>
+          <li>
+            <NavLink
+              to={`/users/${userId}`}
+              className={({ isActive }) => {
+                return isActive ? "active" : "";
+              }}
+            >
+              <svg
+                className="w-8"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              Me
+            </NavLink>
+          </li>
+          <li>
+            <button onClick={logoutHandler}>
+              <svg
+                className="w-8"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M14.25 9v6m-4.5 0V9M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Logout
+            </button>
+          </li>
+        </React.Fragment>
       )}
     </ul>
   );

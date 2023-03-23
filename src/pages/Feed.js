@@ -3,10 +3,14 @@ import PostList from "../components/Post/PostList";
 import { useSelector, useDispatch } from "react-redux";
 import { commentsAcions } from "../app/store/comments-slice";
 import { socket } from "../socket";
+import { getAllPostData } from "../app/store/posts-actions";
 const Feed = () => {
-  const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
- 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllPostData());
+  }, [posts]);
+
   return <div>{posts && <PostList posts={posts} />}</div>;
 };
 

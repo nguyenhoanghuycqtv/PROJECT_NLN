@@ -18,6 +18,7 @@ const PostList = (props) => {
               title={post.title}
               content={post.content}
               postId={post.id}
+              comments={post.comments}
             />
           </li>
         );
