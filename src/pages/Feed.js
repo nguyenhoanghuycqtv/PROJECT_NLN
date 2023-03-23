@@ -9,7 +9,7 @@ const Feed = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllPostData());
-  }, [posts]);
+  }, []);
 
   return <div>{posts && <PostList posts={posts} />}</div>;
 };

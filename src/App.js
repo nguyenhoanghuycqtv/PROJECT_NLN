@@ -14,11 +14,6 @@ import User from "./pages/User";
 import PostDetail from "./pages/PostDetail";
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllUserData());
-    // dispatch(getAllPostData());
-    // dispatch(getAllCommentData());
-  }, []);
 
   useEffect(() => {
     if (localStorage.getItem("userData")) {
