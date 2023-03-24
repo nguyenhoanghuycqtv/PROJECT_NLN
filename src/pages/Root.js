@@ -11,22 +11,20 @@ const Root = () => {
       </div>
 
       <div className="flex-1 flex flex-col md:flex-row mt-20">
-        <div className="md:w-1/4 bg-gray-100">
+        <div className="md:w-1/4">
           <div className="w-12/12">
             <Menu />
           </div>
         </div>
 
-        <div className="md:w-1/2 bg-white p-4">
-          <div className="w-12/12">
+        <div className="card md:w-1/2 p-4">
+          <div className="w-full">
             <Outlet />
           </div>
         </div>
 
-        <div className="md:w-1/4 bg-gray-100">
-          <div className="w-12/12">
-            <UserTableList />
-          </div>
+        <div className="md:w-1/4">
+          <div className="w-12/12">{/* <UserTableList /> */}</div>
         </div>
       </div>
     </div>

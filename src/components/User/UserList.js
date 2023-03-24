@@ -1,9 +1,10 @@
+import { useSelector } from "react-redux";
 import UserItem from "./UserItem";
 
 const UserList = (props) => {
   return (
     <ul>
-      {props.users.map((user) => {
+      {props.users?.map((user) => {
         return (
           <li key={user.id}>
             <UserItem

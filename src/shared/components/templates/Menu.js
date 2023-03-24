@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../../app/store/auth-slice";
 
@@ -19,7 +19,7 @@ const Menu = () => {
     }
   }, [isLoggedIn]);
   return (
-    <ul className="menu bg-base-100 w-12/12 p-2 rounded-box">
+    <ul className="menu w-12/12 p-2 rounded-box">
       <li>
         <NavLink
           to="/"

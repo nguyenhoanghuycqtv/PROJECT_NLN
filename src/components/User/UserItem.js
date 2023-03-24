@@ -4,7 +4,7 @@ import Avatar from "../../shared/components/UI/Avatar";
 
 function UserItem(props) {
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center space-x-4 m-2">
       <Avatar image={props.image} width={10} />
       <div className="text-gray-800">
         <Link to={`/users/${props.id}`}>

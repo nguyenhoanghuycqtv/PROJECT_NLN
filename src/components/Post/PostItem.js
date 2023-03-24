@@ -3,10 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CommentForm from "../Comment/CommentForm";
 import CommentList from "../Comment/CommentList";
-import UserList from "../User/UserList";
+import UserItem from "../User/UserItem";
 import { deletePost } from "../../app/store/posts-actions";
 const PostItem = (props) => {
   const users = useSelector((state) => state.users.users);
+  const user = users?.find((u) => u.id === props.postOwner);
   const { userId, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,16 +17,14 @@ const PostItem = (props) => {
   };
 
   return (
-    <div className="card w-9/12 mb-12">
-      <div>
-        <UserList
-          users={users.filter((user) => user.id === props.post.creator.id)}
-        />
-      </div>
-      <figure>
+    <div className="card w-full mb-12 bg-[#F1F3F6]">
+      {user && (
+        <UserItem image={user.image} name={user.name} email={user.email} />
+      )}
+      <figure className="m-2">
         <img src={`http://localhost:5000/${props.image}`} />
       </figure>
-      <div className="card-body">
+      <div className="card-body m-2">
         <h2 className="card-title">{props.title}</h2>
         <p>{props.content}</p>
         <div className="card-actions justify-start">
@@ -62,7 +61,9 @@ const PostItem = (props) => {
       <div>
         {props.postId && (
           <Link to={`/posts/${props.postId}`}>
-            <button className="btn btn-primary">Detail post and Comment</button>
+            <button className="btn btn-primary m-2">
+              Detail post and Comment
+            </button>
           </Link>
         )}
       </div>

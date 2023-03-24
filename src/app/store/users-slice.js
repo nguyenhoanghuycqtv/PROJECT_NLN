@@ -9,6 +9,9 @@ const usersSlice = createSlice({
     getAllUser(state, action) {
       state.users = action.payload;
     },
+    getUser(state, action) {
+      state.users = [action.payload];
+    },
   },
 });
 

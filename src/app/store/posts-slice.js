@@ -17,8 +17,9 @@ const postsSlice = createSlice({
       }
     },
     deletePost(state, action) {
-      const { id } = action.payload;
-      state.posts.filter((post) => post.id !== id);
+      // const { id } = action.payload;
+      state.posts = state.posts.filter((post) => post.id !== action.payload);
+      console.log("PostafterDelete", state.posts);
     },
     getAllPost(state, action) {
       state.posts = action.payload;

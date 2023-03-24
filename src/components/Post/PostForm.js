@@ -32,7 +32,7 @@ const PostForm = (props) => {
   };
 
   return (
-    <div className="card bg-red-600">
+    <div className="card bg-white">
       <form onSubmit={formSubmitHandler} className="py-6 m-4">
         <div className="mb-4">
           <ImageUpload id="image" onInput={handleFileUpload} />

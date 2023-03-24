@@ -6,18 +6,22 @@ import PostList from "../components/Post/PostList";
 import PostForm from "../components/Post/PostForm";
 import { postPost, getAllPostByUserId } from "../app/store/posts-actions";
 import { useDispatch } from "react-redux";
+import { getUserDataByUserId } from "../app/store/users-actions";
+let isInitial = true;
 const User = (props) => {
   const userId = useParams().id;
   useEffect(() => {
+    dispatch(getUserDataByUserId(userId));
     dispatch(getAllPostByUserId(userId));
-  }, []);
+    if (isInitial) {
+      isInitial = false;
+    }
+  }, [userId]);
+  const posts = useSelector((state) => state.posts.posts);
+  const user = useSelector((state) => state.users.users);
+  console.log("User from UserPage", user);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
-  const posts = useSelector((state) => state.posts.posts);
-  const users = useSelector((state) => state.users.users);
-  const user = users.filter((u) => {
-    return u.id === userId;
-  })[0];
 
   const handleSubmitHandler = (
     enteredFile,
@@ -35,9 +39,9 @@ const User = (props) => {
   };
   return (
     <div className="card">
-      {user && (
+      {/* {user && (
         <Stat image={user.image} posts={posts} comments={posts.comments} />
-      )}
+      )} */}
       <PostForm userId={userId} submitHandler={handleSubmitHandler} />
       <PostList posts={posts} className="mt-4" />
     </div>

@@ -11,7 +11,7 @@ const CommentList = (props) => {
         .slice()
         .reverse()
         .map((comment) => (
-          <li key={comment.id}>
+          <li key={comment._id}>
             <CommentItem
               name={comment.creator.name}
               email={comment.creator.email}
