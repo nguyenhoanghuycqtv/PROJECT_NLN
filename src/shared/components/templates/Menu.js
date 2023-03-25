@@ -19,7 +19,7 @@ const Menu = () => {
     }
   }, [isLoggedIn]);
   return (
-    <ul className="menu w-12/12 p-2 rounded-box">
+    <ul className="menu w-1/5 p-2 rounded-box fixed left-0">
       <li>
         <NavLink
           to="/"

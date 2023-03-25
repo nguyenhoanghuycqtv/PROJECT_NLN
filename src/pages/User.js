@@ -7,18 +7,15 @@ import PostForm from "../components/Post/PostForm";
 import { postPost, getAllPostByUserId } from "../app/store/posts-actions";
 import { useDispatch } from "react-redux";
 import { getUserDataByUserId } from "../app/store/users-actions";
-let isInitial = true;
 const User = (props) => {
   const userId = useParams().id;
   useEffect(() => {
     dispatch(getUserDataByUserId(userId));
     dispatch(getAllPostByUserId(userId));
-    if (isInitial) {
-      isInitial = false;
-    }
   }, [userId]);
   const posts = useSelector((state) => state.posts.posts);
   const user = useSelector((state) => state.users.users);
+  console.log(user);
   console.log("User from UserPage", user);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
@@ -39,9 +36,7 @@ const User = (props) => {
   };
   return (
     <div className="card">
-      {/* {user && (
-        <Stat image={user.image} posts={posts} comments={posts.comments} />
-      )} */}
+      <Stat image={user[0]?.image} posts={user[0]?.posts} />
       <PostForm userId={userId} submitHandler={handleSubmitHandler} />
       <PostList posts={posts} className="mt-4" />
     </div>

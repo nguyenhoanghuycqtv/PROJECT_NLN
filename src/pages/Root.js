@@ -1,30 +1,23 @@
 import { Outlet } from "react-router-dom";
 import Header from "../shared/components/templates/Header";
 import Menu from "../shared/components/templates/Menu";
-import UserTableList from "../shared/components/User/UserTableList";
+import FriendList from "../shared/components/Friend/FriendList";
 
 const Root = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="fixed w-full">
+    <div>
+      <div className="fixed top-0 left-0 w-full z-10">
         <Header />
       </div>
-
-      <div className="flex-1 flex flex-col md:flex-row mt-20">
-        <div className="md:w-1/4">
-          <div className="w-12/12">
-            <Menu />
-          </div>
+      <div className="grid grid-cols-10 gap-4 p-4 mt-16">
+        <div className="col-span-2 bg-white">
+          <Menu />
         </div>
-
-        <div className="card md:w-1/2 p-4">
-          <div className="w-full">
-            <Outlet />
-          </div>
+        <div className="col-span-5 bg-white">
+          <Outlet />
         </div>
-
-        <div className="md:w-1/4">
-          <div className="w-12/12">{/* <UserTableList /> */}</div>
+        <div className="col-span-3 bg-white">
+          <FriendList />
         </div>
       </div>
     </div>
