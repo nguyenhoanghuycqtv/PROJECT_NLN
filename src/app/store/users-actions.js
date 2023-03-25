@@ -29,3 +29,39 @@ export const getUserDataByUserId = (userId) => {
     } catch (err) {}
   };
 };
+
+export const getAllFriendData = (userId) => {
+  return async (dispatch) => {
+    const sendRequest = async () => {
+      const res = await axios.get(
+        `http://localhost:5000/api/users/${userId}/friends`
+      );
+      const resData = res.data;
+      return resData;
+    };
+    try {
+      const resData = await sendRequest();
+      const friends = resData.friends;
+      dispatch(usersActions.getAllFriend(friends));
+    } catch (err) {}
+  };
+};
+
+export const addFriendData = (userId, friendId) => {
+  return async (dispatch) => {
+    const sendRequest = async () => {
+      const res = await axios.post(
+        `http://localhost:5000/api/users/${userId}/add-friend`,
+        { friendId },
+        { headers: { "Content-Type": "application/json" } }
+      );
+      const resData = res.data;
+      return resData;
+    };
+    try {
+      const resData = await sendRequest();
+      const friendAdded = resData.friendAdded;
+      dispatch(usersActions.addFriend(friendAdded));
+    } catch (err) {}
+  };
+};

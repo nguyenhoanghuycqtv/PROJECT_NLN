@@ -19,7 +19,12 @@ const PostItem = (props) => {
   return (
     <div className="card w-full mb-12 bg-[#F1F3F6]">
       {user && (
-        <UserItem image={user.image} name={user.name} email={user.email} />
+        <UserItem
+          image={user.image}
+          name={user.name}
+          email={user.email}
+          id={user.id}
+        />
       )}
       <figure className="m-2">
         <img src={`http://localhost:5000/${props.image}`} />

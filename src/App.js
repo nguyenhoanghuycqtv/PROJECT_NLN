@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { socket } from "./socket";
 import { authActions } from "./app/store/auth-slice";
-import { getAllUserData } from "./app/store/users-actions";
+import { getAllFriendData, getAllUserData } from "./app/store/users-actions";
 import { getAllPostData } from "./app/store/posts-actions";
 import { getAllCommentData } from "./app/store/comments-actions";
 import { commentsAcions } from "./app/store/comments-slice";
@@ -13,7 +13,14 @@ import Feed from "./pages/Feed";
 import User from "./pages/User";
 import PostDetail from "./pages/PostDetail";
 function App() {
+  const { userId } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllFriendData(userId));
+  }, [userId]);
+
   useEffect(() => {
     if (localStorage.getItem("userData")) {
       const userData = JSON.parse(localStorage.getItem("userData"));

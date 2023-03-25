@@ -1,7 +1,7 @@
 const Avatar = (props) => {
   return (
     <div className="avatar">
-      <div className={`rounded-full w-${props.width}`}>
+      <div className={`rounded-full ${props.className}`}>
         <img src={`http://localhost:5000/${props.image}`} />
       </div>
     </div>

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const Root = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const friends = useSelector((state) => state.friends.friends);
+  const friends = useSelector((state) => state.users.friends);
   return (
     <div>
       <div className="fixed top-0 left-0 w-full z-10">

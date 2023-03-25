@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialUsersState = { users: [] };
+const initialUsersState = { users: [], friends: [] };
 
 const usersSlice = createSlice({
   name: "users",
@@ -11,6 +11,12 @@ const usersSlice = createSlice({
     },
     getUser(state, action) {
       state.users = [action.payload];
+    },
+    getAllFriend: (state, action) => {
+      state.friends = action.payload;
+    },
+    addFriend: (state, action) => {
+      state.friends = [...state.friends, action.payload];
     },
   },
 });
