@@ -2,8 +2,11 @@ import { Outlet } from "react-router-dom";
 import Header from "../shared/components/templates/Header";
 import Menu from "../shared/components/templates/Menu";
 import FriendList from "../shared/components/Friend/FriendList";
+import { useSelector } from "react-redux";
 
 const Root = () => {
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const friends = useSelector((state) => state.friends.friends);
   return (
     <div>
       <div className="fixed top-0 left-0 w-full z-10">
@@ -17,7 +20,7 @@ const Root = () => {
           <Outlet />
         </div>
         <div className="col-span-3 bg-white">
-          <FriendList />
+          {isLoggedIn && <FriendList friends={friends} />}
         </div>
       </div>
     </div>

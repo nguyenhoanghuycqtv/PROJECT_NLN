@@ -27,7 +27,6 @@ export const getAllCommentDataByPostId = (postId) => {
     };
     try {
       const resData = await sendRequest();
-      console.log(resData)
       const comments = resData.comments;
       // console.log("Comments from action post", comments);
       dispatch(commentsAcions.getAllComment(comments));
