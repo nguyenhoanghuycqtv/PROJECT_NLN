@@ -65,3 +65,22 @@ export const addFriendData = (userId, friendId) => {
     } catch (err) {}
   };
 };
+
+export const deleteFriendData = (userId, friendId) => {
+  return async (dispatch) => {
+    const sendRequest = async () => {
+      const res = await axios.delete(
+        `http://localhost:5000/api/users/${userId}/delete-friend`,
+        { data: { friendId }, headers: { "Content-Type": "application/json" } }
+      );
+      const resData = res.data;
+      return resData;
+    };
+    try {
+      await sendRequest();
+      dispatch(usersActions.deleteFriend(friendId));
+    } catch (err) {}
+  };
+};
+
+

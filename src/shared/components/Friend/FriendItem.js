@@ -4,7 +4,7 @@ import Avatar from "../UI/Avatar";
 
 const FriendItem = (props) => {
   return (
-    <div className="card">
+    <div className="card m-2">
       <div className="flex flex-row">
         <div className="w-4/12">
           <Avatar

@@ -14,7 +14,7 @@ const Feed = () => {
     dispatch(getAllPostData());
     dispatch(getAllUserData());
     dispatch(getAllFriendData(userId));
-  }, [userId]);
+  }, []);
 
   return <div>{posts && <PostList posts={posts} />}</div>;
 };

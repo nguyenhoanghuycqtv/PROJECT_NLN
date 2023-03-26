@@ -8,9 +8,11 @@ import { postPost, getAllPostByUserId } from "../app/store/posts-actions";
 import { useDispatch } from "react-redux";
 import {
   addFriendData,
+  deleteFriendData,
   getAllFriendData,
   getUserDataByUserId,
 } from "../app/store/users-actions";
+import { usersActions } from "../app/store/users-slice";
 let isInitial = true;
 const User = (props) => {
   const id = useParams().id;
@@ -18,13 +20,14 @@ const User = (props) => {
   const { userId, token } = useSelector((state) => state.auth);
   const posts = useSelector((state) => state.posts.posts);
   const user = useSelector((state) => state.users.users);
-  const friends = useSelector((state) => state.users.friends);
+  const { friends, isFriend } = useSelector((state) => state.users);
+  console.log(friends);
   const dispatch = useDispatch();
-  console.log(userId, id);
   useEffect(() => {
     dispatch(getUserDataByUserId(id));
     dispatch(getAllPostByUserId(id));
-  }, [id]);
+    dispatch(usersActions.isFriend(id));
+  }, [id, friends]);
 
   if (isInitial) {
     isInitial = false;
@@ -41,7 +44,6 @@ const User = (props) => {
     formData.append("title", enteredTitle);
     formData.append("content", enteredContent);
     formData.append("creator", enteredUserId);
-    console.log("Token in form data", token);
     dispatch(postPost(formData, token));
   };
 
@@ -52,6 +54,9 @@ const User = (props) => {
   const addFriendHandler = () => {
     dispatch(addFriendData(userId, id));
   };
+  const deleteFriendHandler = () => {
+    dispatch(deleteFriendData(userId, id));
+  };
 
   return (
     <div className="card">
@@ -61,7 +66,9 @@ const User = (props) => {
         friends={user[0]?.friends}
         name={user[0]?.name}
         addFriend={addFriendHandler}
+        deleteFriend={deleteFriendHandler}
         userPageId={id}
+        isFriend={isFriend}
       />
       {id === userId && (
         <React.Fragment>

@@ -4,10 +4,11 @@ import Avatar from "../UI/Avatar";
 import FriendItem from "./FriendItem";
 const FriendList = (props) => {
   return (
-    <div className="card">
+    <div className="card m-2">
+      <div className="font-extrabold text-2xl text-left">Your Friends</div>
       <ul>
         {props.friends?.map((friend) => (
-          <li>
+          <li key={friend._id}>
             <FriendItem
               image={friend.image}
               name={friend.name}

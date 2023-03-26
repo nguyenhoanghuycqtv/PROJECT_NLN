@@ -6,11 +6,8 @@ import CommentList from "../components/Comment/CommentList";
 import PostItem from "../components/Post/PostItem";
 import {
   postComment,
-  getAllCommentData,
   getAllCommentDataByPostId,
 } from "../app/store/comments-actions";
-import { commentsAcions } from "../app/store/comments-slice";
-import { counterActions } from "../app/store/test-slice";
 
 const PostDetail = () => {
   const { postId } = useParams();
@@ -30,29 +27,17 @@ const PostDetail = () => {
 
   const comments = useSelector((state) => state.comments.comments);
 
-  console.log(comments);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const post = posts.find((post) => post.id === postId);
-  const counter = useSelector((state) => state.counter.counter);
 
   const handleSubmitHandler = (commentEntered) => {
     const data = { content: commentEntered, creator: userId, location: postId };
 
     dispatch(postComment(data, token, postId));
-    console.log("After Post Comment", data);
-  };
-
-  const counterHandler = () => {
-    dispatch(counterActions.increase());
-    console.log(counter);
   };
   return (
     <div className="card">
-      <button onClick={counterHandler} className="btn btn-error">
-        Click me
-      </button>
-      {counter}
       {post && (
         <PostItem
           comments={comments}

@@ -11,7 +11,6 @@ const commentsSlice = createSlice({
     addComment(state, action) {
       // console.log(action.payload);
       state.comments = [...state.comments, action.payload];
-      console.log("Comments from Comments Slice", state.comments);
     },
     getAllComment(state, action) {
       state.comments = action.payload

@@ -44,7 +44,6 @@ export const postPost = (data, token) => {
     };
     try {
       const resData = await sendRequest();
-      console.log(resData)
       const post = resData.post;
       dispatch(postsAcions.addPost(post));
       // await sendRequest();
