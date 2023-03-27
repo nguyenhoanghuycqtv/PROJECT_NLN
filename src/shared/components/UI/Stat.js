@@ -86,7 +86,7 @@ const Stat = (props) => {
           <div className="text-center">
             <Avatar image={props.image} className={"w-36"} />
           </div>
-          <div className="font-extrabold text-2xl inline-block">
+          <div className="font-extrabold text-2xl inline-block text-center">
             {props.name}
           </div>
         </div>
