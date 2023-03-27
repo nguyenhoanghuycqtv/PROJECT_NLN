@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 import Feed from "./pages/Feed";
 import User from "./pages/User";
 import PostDetail from "./pages/PostDetail";
+import Search from "./pages/Search";
 function App() {
   const { userId } = useSelector((state) => state.auth);
 
@@ -34,7 +35,13 @@ function App() {
       element: <Root />,
       children: [
         { index: true, element: <Feed /> },
-        { path: "users", children: [{ path: ":id", element: <User /> }] },
+        {
+          path: "users",
+          children: [
+            { path: ":id", element: <User /> },
+            { path: "search/:name", element: <Search />},
+          ],
+        },
         {
           path: "posts",
           children: [{ path: ":postId", element: <PostDetail /> }],
