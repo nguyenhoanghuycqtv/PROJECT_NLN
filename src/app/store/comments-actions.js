@@ -1,6 +1,5 @@
 import axios from "axios";
 import { commentsAcions } from "./comments-slice";
-import { socket } from "../../socket";
 export const getAllCommentData = () => {
   return async (dispatch) => {
     const sendRequest = async () => {

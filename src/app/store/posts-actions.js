@@ -1,6 +1,5 @@
 import axios from "axios";
 import { postsAcions } from "./posts-slice";
-import { socket } from "../../socket";
 export const getAllPostData = () => {
   return async (dispatch) => {
     const sendRequest = async () => {
@@ -46,8 +45,6 @@ export const postPost = (data, token) => {
       const resData = await sendRequest();
       const post = resData.post;
       dispatch(postsAcions.addPost(post));
-      // await sendRequest();
-      // socket.on("createPost", (data) => dispatch(postsAcions.addPost(data.post)));
     } catch (err) {}
   };
 };

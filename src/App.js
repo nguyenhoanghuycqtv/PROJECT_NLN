@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { socket } from "./socket";
 import { authActions } from "./app/store/auth-slice";
-import { getAllFriendData, getAllUserData } from "./app/store/users-actions";
-import { getAllPostData } from "./app/store/posts-actions";
-import { getAllCommentData } from "./app/store/comments-actions";
-import { commentsAcions } from "./app/store/comments-slice";
+import { getAllFriendData } from "./app/store/users-actions";
 import Root from "./pages/Root";
 import Auth from "./pages/Auth";
 import Feed from "./pages/Feed";
