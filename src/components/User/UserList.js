@@ -6,9 +6,9 @@ const UserList = (props) => {
     <ul>
       {props.users?.map((user) => {
         return (
-          <li key={user.id}>
+          <li key={user._id}>
             <UserItem
-              id={user.id}
+              id={user._id}
               image={user.image}
               name={user.name}
               email={user.email}
