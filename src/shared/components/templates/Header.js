@@ -11,22 +11,23 @@ const Header = () => {
   const navigate = useNavigate();
   const {
     value: nameEntered,
-    valueChangeHandler: nameChangeHandler,
-    reset: resetName,
-  } = useInput();
+    handleChange: nameChangeHandler,
+    reset,
+  } = useInput((nameEntered) => nameEntered.trim() !== "");
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
     dispatch(searchUsers(nameEntered));
-
     navigate(`/users/search/${nameEntered}`);
+
+    reset();
   };
 
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
         <Link to="/">
-          <span className="font-extrabold text-4xl">daisyUI</span>
+          <span className="font-extrabold text-4xl">GBK Social-Network</span>
         </Link>
       </div>
       <div className="flex flex-row">
@@ -38,6 +39,7 @@ const Header = () => {
               </label>
               <input
                 onChange={nameChangeHandler}
+                value={nameEntered}
                 id="name"
                 name="name"
                 type="text"

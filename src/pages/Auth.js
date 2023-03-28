@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useInput from "../shared/hooks/use-input";
 import ImageUpload from "../shared/components/form/ImageUpload";
 import { useNavigate } from "react-router-dom";
+import Alert from "../shared/components/UI/Alert";
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [file, setFile] = useState({ value: null });
@@ -18,29 +19,40 @@ const Auth = () => {
     setIsLogin((prev) => !prev);
   };
   const {
-    value: enteredName,
-    valueChangeHandler: nameChangeHandler,
+    value: nameEntered,
+    valueIsValid: nameIsValid,
+    hasError: nameHasError,
+    handleChange: nameChangeHandler,
+    handleBlur: nameBlurHandler,
     reset: resetName,
-  } = useInput();
+  } = useInput((nameEntered) => nameEntered.trim() !== "");
 
   const {
-    value: enteredEmail,
-    valueChangeHandler: emailChangeHandler,
+    value: emailEntered,
+    handleChange: emailChangeHandler,
+    handleBlur: emailBlurHandler,
+    valueIsValid: emailIsValid,
+    hasError: emailHasError,
     reset: resetEmail,
-  } = useInput();
+  } = useInput((emailEntered) => emailEntered.trim().includes("@"));
 
   const {
-    value: enteredPassword,
-    valueChangeHandler: passwordChangeHandler,
+    value: passwordEntered,
+    handleChange: passwordChangeHandler,
+    handleBlur: passwordBlurHandler,
+    valueIsValid: passwordIsValid,
+    hasError: passwordHasError,
     reset: resetPassword,
-  } = useInput();
+  } = useInput((passwordEntered) => passwordEntered.trim().length >= 6);
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
     if (isLogin) {
       try {
-        const data = { email: enteredEmail, password: enteredPassword };
+        const data = { email: emailEntered, password: passwordEntered };
         dispatch(loginHandler(data));
+        resetEmail();
+        resetPassword();
         navigate("/");
       } catch (err) {
         console.log(err);
@@ -48,11 +60,14 @@ const Auth = () => {
     } else {
       try {
         const formData = new FormData();
-        formData.append("name", enteredName);
+        formData.append("name", nameEntered);
         formData.append("image", file.value);
-        formData.append("email", enteredEmail);
-        formData.append("password", enteredPassword);
+        formData.append("email", emailEntered);
+        formData.append("password", passwordEntered);
         dispatch(signupHandler(formData));
+        resetName();
+        resetEmail();
+        resetPassword();
         navigate("/");
       } catch (err) {}
     }
@@ -64,8 +79,8 @@ const Auth = () => {
         className="w-full max-w-lg bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
         {!isLogin && (
-          <div>
-            <label htmlFor="name" className="text-bold">
+          <div className="m-2">
+            <label htmlFor="name" className="font-extrabold text-xl ">
               Name
             </label>
             <input
@@ -74,17 +89,21 @@ const Auth = () => {
               type="text"
               placeholder="Type here"
               onChange={nameChangeHandler}
+              onBlur={nameBlurHandler}
               className="input input-bordered input-error w-full max-w-xs"
             />
+            {nameHasError && (
+              <Alert type={"warning"} content={"Invalid name"} />
+            )}
           </div>
         )}
         {!isLogin && (
-          <div className="card w-100% glass">
+          <div className="card w-100% glass m-2">
             <ImageUpload id="image" onInput={handleFileUpload} />
           </div>
         )}
-        <div>
-          <label htmlFor="email" className="text-bold">
+        <div className="m-2">
+          <label htmlFor="email" className="font-extrabold text-xl ">
             Email
           </label>
           <input
@@ -93,11 +112,15 @@ const Auth = () => {
             type="text"
             placeholder="Type here"
             onChange={emailChangeHandler}
+            onBlur={emailBlurHandler}
             className="input input-bordered input-error w-full max-w-xs"
           />
+          {emailHasError && (
+            <Alert type={"warning"} content={"Invalid email"} />
+          )}
         </div>
-        <div>
-          <label htmlFor="password" className="text-bold">
+        <div className="m-2">
+          <label htmlFor="password" className="font-extrabold text-xl ">
             Password
           </label>
           <input
@@ -106,10 +129,14 @@ const Auth = () => {
             type="password"
             placeholder="Type here"
             onChange={passwordChangeHandler}
+            onBlur={passwordBlurHandler}
             className="input input-bordered input-error w-full max-w-xs"
           />
+          {passwordHasError && (
+            <Alert type={"warning"} content={"Invalid password"} />
+          )}
         </div>
-        <div className="text-center">
+        <div className="text-center m-2">
           {!isLogin && (
             <button type="submit" className="btn btn-info">
               Signup
@@ -121,7 +148,7 @@ const Auth = () => {
             </button>
           )}
         </div>
-        <div className="text-center">
+        <div className="text-center m-2">
           <button
             type="button"
             className="btn btn-warning"

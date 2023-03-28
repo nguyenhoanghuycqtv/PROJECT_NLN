@@ -45,6 +45,7 @@ const User = (props) => {
     formData.append("content", enteredContent);
     formData.append("creator", enteredUserId);
     dispatch(postPost(formData, token));
+    setCreateNewPost((prevState) => !prevState);
   };
 
   const createPostHandler = () => {

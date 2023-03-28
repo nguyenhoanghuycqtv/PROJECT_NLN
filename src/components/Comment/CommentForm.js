@@ -2,25 +2,28 @@ import useInput from "../../shared/hooks/use-input";
 const CommentForm = (props) => {
   const {
     value: commentEntered,
-    valueChangeHandler: commentChangeHandler,
+    handleChange: commentChangeHandler,
     reset: resetComment,
-  } = useInput();
+  } = useInput((commentEntered) => commentEntered.trim() !== "");
   const formSubmitHandler = (event) => {
     event.preventDefault();
     props.submitHandler(commentEntered);
+
+    resetComment();
   };
 
   return (
-    <div className="card w-12/12">
+    <div className="card w-full">
       <form onSubmit={formSubmitHandler}>
         <label htmlFor="comment"></label>
         <textarea
+          value={commentEntered}
           onChange={commentChangeHandler}
           name="comment"
           id="comment"
-          className="textarea textarea-warning"
+          className="textarea textarea-bordered w-full"
         ></textarea>
-        <button type="submit" className="btn btn-warning">
+        <button type="submit" className="btn btn-info">
           Submit
         </button>
       </form>

@@ -71,6 +71,11 @@ const PostItem = (props) => {
             </button>
           </Link>
         )}
+        {/* <Link to={`/posts/${props.postId}`}>
+          <button className="btn btn-primary m-2">
+            Detail post and Comment
+          </button>
+        </Link> */}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ImageUpload from "../../shared/components/form/ImageUpload";
 import useInput from "../../shared/hooks/use-input";
 import { postPost } from "../../app/store/posts-actions";
+import Alert from "../../shared/components/UI/Alert";
 
 const PostForm = (props) => {
   const navigate = useNavigate();
@@ -15,20 +16,26 @@ const PostForm = (props) => {
     setFile(imageUploaded);
   };
   const {
-    value: enteredTitle,
-    valueChangeHandler: titleChangeHandler,
+    value: titleEntered,
+    valueIsValid: titleIsValid,
+    hasError: titleHasError,
+    handleChange: titleChangeHandler,
+    handleBlur: titleBlurHandler,
     reset: resetTitle,
-  } = useInput();
+  } = useInput((enteredTitle) => enteredTitle.trim() !== "");
 
   const {
-    value: enteredContent,
-    valueChangeHandler: contentChangeHandler,
+    value: contentEntered,
+    valueIsValid: contentIsValid,
+    hasError: contentHasError,
+    handleChange: contentChangeHandler,
+    handleBlur: contentBlurHandler,
     reset: resetContent,
-  } = useInput();
+  } = useInput((enteredContent) => enteredContent.trim() !== "");
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    props.submitHandler(file.value, enteredTitle, enteredContent, userId);
+    props.submitHandler(file.value, titleEntered, contentEntered, userId);
   };
 
   return (
@@ -43,11 +50,15 @@ const PostForm = (props) => {
           </label>
           <input
             onChange={titleChangeHandler}
+            onBlur={titleBlurHandler}
             type="text"
             name="title"
             id="title"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
+          {titleHasError && (
+            <Alert type={"warning"} content={"Invalid title"} />
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -58,11 +69,15 @@ const PostForm = (props) => {
           </label>
           <textarea
             onChange={contentChangeHandler}
+            onBlur={contentBlurHandler}
             name="content"
             id="content"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             rows="6"
           ></textarea>
+          {contentHasError && (
+            <Alert type={"warning"} content={"Invalid content"} />
+          )}
         </div>
         <div className="flex items-center justify-between">
           <button
