@@ -8,11 +8,12 @@ import {
   postComment,
   getAllCommentDataByPostId,
 } from "../app/store/comments-actions";
+import { getPostByPostId } from "../app/store/posts-actions";
 
 const PostDetail = () => {
   const { postId } = useParams();
   const { userId, token } = useSelector((state) => state.auth);
-  const posts = useSelector((state) => state.posts.posts);
+  const post = useSelector((state) => state.posts.posts);
   // const comments = useSelector(state => state.comments.comments)
   // const comments = useSelector((state) => {
   //   console.log(state.comments.comments);
@@ -22,6 +23,7 @@ const PostDetail = () => {
   // });
 
   useEffect(() => {
+    dispatch(getPostByPostId(postId));
     dispatch(getAllCommentDataByPostId(postId));
   }, []);
 
@@ -29,7 +31,6 @@ const PostDetail = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const post = posts.find((post) => post.id === postId);
 
   const handleSubmitHandler = (commentEntered) => {
     const data = { content: commentEntered, creator: userId, location: postId };
@@ -40,6 +41,7 @@ const PostDetail = () => {
     <div className="card">
       {post && (
         <PostItem
+          postId={postId}
           comments={comments}
           post={post}
           image={post.image}

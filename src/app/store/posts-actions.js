@@ -30,6 +30,21 @@ export const getAllPostByUserId = (userId) => {
   };
 };
 
+export const getPostByPostId = (postId) => {
+  return async (dispatch) => {
+    const sendRequest = async () => {
+      const res = await axios.get(`http://localhost:5000/api/posts/${postId}`);
+      const resData = res.data;
+      return resData;
+    };
+    try {
+      const resData = await sendRequest();
+      const post = resData.post;
+      dispatch(postsAcions.getAllPost(post));
+    } catch (err) {}
+  };
+};
+
 export const postPost = (data, token) => {
   return async (dispatch) => {
     const sendRequest = async () => {

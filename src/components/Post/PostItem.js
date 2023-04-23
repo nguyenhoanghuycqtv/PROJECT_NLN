@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CommentForm from "../Comment/CommentForm";
 import CommentList from "../Comment/CommentList";
 import UserItem from "../User/UserItem";
 import { deletePost } from "../../app/store/posts-actions";
 const PostItem = (props) => {
+  const location = useLocation();
   const users = useSelector((state) => state.users.users);
   const user = users?.find((u) => u.id === props.postOwner);
   const { userId, token } = useSelector((state) => state.auth);
@@ -51,20 +52,22 @@ const PostItem = (props) => {
           <p>{props.comments?.length}</p>
         </div>
       </div>
-      {userId === props.post.creator.id && (
-        <div className="flex justify-start">
-          <div className="m-2">
+      {userId === props.post.creator?.id &&
+        location.pathname === `/posts/${props.postId}` && (
+          <div className="flex justify-start">
+            {/* <div className="m-2">
             <button className="btn btn-info">EDIT</button>
+          </div> */}
+            <div className="m-2">
+              <button onClick={deletePostHandler} className="btn btn-error">
+                DELETE
+              </button>
+            </div>
           </div>
-          <div className="m-2">
-            <button onClick={deletePostHandler} className="btn btn-error">
-              DELETE
-            </button>
-          </div>
-        </div>
-      )}
+        )}
+      {console.log(userId)}
       <div>
-        {props.postId && (
+        {props.postId && location.pathname !== `/posts/${props.postId}` && (
           <Link to={`/posts/${props.postId}`}>
             <button className="btn btn-primary m-2">
               Detail post and Comment

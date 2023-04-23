@@ -7,7 +7,6 @@ const Feed = () => {
   const posts = useSelector((state) => state.posts.posts);
   const users = useSelector((state) => state.users.users);
   const { userId } = useSelector((state) => state.auth);
-  // console.log("Users from Feed", users);
   const dispatch = useDispatch();
 
   useEffect(() => {

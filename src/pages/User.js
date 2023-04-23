@@ -21,7 +21,7 @@ const User = (props) => {
   const posts = useSelector((state) => state.posts.posts);
   const user = useSelector((state) => state.users.users);
   const { friends, isFriend } = useSelector((state) => state.users);
-  console.log(friends);
+  console.log(posts);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserDataByUserId(id));
