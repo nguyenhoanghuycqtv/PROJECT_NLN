@@ -65,7 +65,6 @@ const PostItem = (props) => {
             </div>
           </div>
         )}
-      {console.log(userId)}
       <div>
         {props.postId && location.pathname !== `/posts/${props.postId}` && (
           <Link to={`/posts/${props.postId}`}>

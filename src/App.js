@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./app/store/auth-slice";
@@ -14,9 +14,11 @@ function App() {
 
   const dispatch = useDispatch();
 
+  let logoutTimerRef = useRef(null);
+
   useEffect(() => {
     dispatch(getAllFriendData(userId));
-  }, [userId]);
+  }, [userId, dispatch]);
 
   useEffect(() => {
     if (localStorage.getItem("userData")) {
@@ -24,7 +26,20 @@ function App() {
       const { userId, token, name, image } = userData;
       dispatch(authActions.login({ userId, token, name, image }));
     }
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (localStorage.getItem("userData")) {
+      logoutTimerRef.current = setTimeout(() => {
+        dispatch(authActions.logout());
+      }, 5000);
+      return () => {
+        clearTimeout(logoutTimerRef.current);
+      };
+    }
+    console.log("Test Auto Logout")
+  },[dispatch]);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -35,7 +50,7 @@ function App() {
           path: "users",
           children: [
             { path: ":id", element: <User /> },
-            { path: "search/:name", element: <Search />},
+            { path: "search/:name", element: <Search /> },
           ],
         },
         {
