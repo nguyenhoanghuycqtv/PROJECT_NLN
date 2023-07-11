@@ -1,5 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialPostsSlice = { posts: [] };
+const initialPostsSlice = {
+  posts: [
+    {
+      title: "Farewell",
+      content:
+        "Manchester will always be in my heart, Manchester has shaped me and will never leave me.We’ve seen it all. 🤘🏼❤️",
+      image:
+        "https://pbs.twimg.com/media/F0hJx4qXsAEFMbK?format=jpg&name=large",
+      creator: {
+        name: "David De Gea",
+        email: "daviddegea@gmail.com",
+        password: "123456789",
+        image:
+          "https://pbs.twimg.com/profile_images/1677677662570000384/IuKiZeNT_400x400.jpg",
+      },
+      comments: [],
+    },
+  ],
+};
 const postsSlice = createSlice({
   name: "posts",
   initialState: initialPostsSlice,
@@ -22,6 +40,7 @@ const postsSlice = createSlice({
       console.log("PostafterDelete", state.posts);
     },
     getAllPost(state, action) {
+      // state.posts = [...state.posts, action.payload];
       state.posts = action.payload;
     },
   },

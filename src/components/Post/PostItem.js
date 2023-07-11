@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import CommentForm from "../Comment/CommentForm";
-import CommentList from "../Comment/CommentList";
 import UserItem from "../User/UserItem";
 import { deletePost } from "../../app/store/posts-actions";
 const PostItem = (props) => {
@@ -28,7 +26,8 @@ const PostItem = (props) => {
         />
       )}
       <figure className="m-2">
-        <img src={`http://localhost:5000/${props.image}`} />
+        {<img src={props.image} />}
+        {/* <img src={`http://localhost:5000/${props.image}`} /> */}
       </figure>
       <div className="card-body m-2">
         <h2 className="card-title">{props.title}</h2>

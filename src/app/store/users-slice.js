@@ -1,6 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialUsersState = { users: [], friends: [], isFriend: undefined };
+const initialUsersState = {
+  users: [
+    {
+      name: "David De Gea",
+      email: "daviddegea@gmail.com",
+      password: "123456789",
+      image:
+        "https://pbs.twimg.com/profile_images/1677677662570000384/IuKiZeNT_400x400.jpg",
+    },
+  ],
+  friends: [],
+  isFriend: undefined,
+};
 
 const usersSlice = createSlice({
   name: "users",
