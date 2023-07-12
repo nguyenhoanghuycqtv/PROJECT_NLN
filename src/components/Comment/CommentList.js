@@ -8,10 +8,8 @@ const CommentList = (props) => {
     <ul>
       {props.comments
         // .filter((comment) => comment.location.id === props.postId)
-        .slice()
-        .reverse()
         .map((comment) => (
-          <li key={comment._id}>
+          <li key={comment.id}>
             <CommentItem
               name={comment.creator.name}
               email={comment.creator.email}

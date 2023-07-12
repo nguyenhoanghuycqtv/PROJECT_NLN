@@ -13,7 +13,7 @@ const commentsSlice = createSlice({
       state.comments = [...state.comments, action.payload];
     },
     getAllComment(state, action) {
-      state.comments = action.payload
+      state.comments = action.payload;
     },
   },
 });

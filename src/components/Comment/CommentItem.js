@@ -7,7 +7,8 @@ const CommentItem = (props) => {
         <div className="mr-4 flex-shrink-0">
           <img
             className="h-10 w-10 rounded-full"
-            src={`http://localhost:5000/${props.image}`}
+            // src={`http://localhost:5000/${props.image}`}
+            src={props.image}
           />
         </div>
         <div className="w-full">

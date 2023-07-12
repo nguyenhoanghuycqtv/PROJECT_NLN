@@ -3,10 +3,31 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import UserItem from "../User/UserItem";
 import { deletePost } from "../../app/store/posts-actions";
+
+const DUMMY_USERS = [
+  {
+    id: "degea",
+    name: "David De Gea",
+    email: "daviddegea@gmail.com",
+    password: "123456789",
+    image:
+      "https://pbs.twimg.com/profile_images/1677677662570000384/IuKiZeNT_400x400.jpg",
+  },
+  {
+    id: "garnacho",
+    name: "Alejandro Garnacho",
+    email: "alejandrogarnacho@gmail.com",
+    password: "123456789",
+    image:
+      "https://pbs.twimg.com/profile_images/1635048434569822210/UzHEV8t0_400x400.jpg",
+  },
+];
+
 const PostItem = (props) => {
   const location = useLocation();
   const users = useSelector((state) => state.users.users);
   const user = users?.find((u) => u.id === props.postOwner);
+  const dummyUser = DUMMY_USERS.find((u) => u.id === props.postOwner);
   const { userId, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,6 +46,14 @@ const PostItem = (props) => {
           id={user.id}
         />
       )}
+      {
+        <UserItem
+          image={dummyUser?.image}
+          name={dummyUser?.name}
+          email={dummyUser?.email}
+          id={dummyUser?.id}
+        />
+      }
       <figure className="m-2">
         {<img src={props.image} />}
         {/* <img src={`http://localhost:5000/${props.image}`} /> */}
