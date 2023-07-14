@@ -5,6 +5,12 @@ import useInput from "../shared/hooks/use-input";
 import ImageUpload from "../shared/components/form/ImageUpload";
 import { useNavigate } from "react-router-dom";
 import Alert from "../shared/components/UI/Alert";
+
+const defaultAccount = {
+  email: "duongtanphuoc@gmail.com",
+  password: "duongtanphuoc",
+};
+
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [file, setFile] = useState({ value: null });
@@ -48,14 +54,25 @@ const Auth = () => {
   const formSubmitHandler = async (event) => {
     event.preventDefault();
     if (isLogin) {
-      try {
+      if (
+        emailEntered === defaultAccount.email &&
+        passwordEntered === defaultAccount.password
+      ) {
         const data = { email: emailEntered, password: passwordEntered };
         dispatch(loginHandler(data));
         resetEmail();
         resetPassword();
         navigate("/");
-      } catch (err) {
-        console.log(err);
+      } else {
+        try {
+          const data = { email: emailEntered, password: passwordEntered };
+          dispatch(loginHandler(data));
+          resetEmail();
+          resetPassword();
+          navigate("/");
+        } catch (err) {
+          console.log(err);
+        }
       }
     } else {
       try {

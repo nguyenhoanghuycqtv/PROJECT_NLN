@@ -2,6 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialUsersState = {
   users: [
+    {
+      id: "degea",
+      name: "David De Gea",
+      email: "daviddegea@gmail.com",
+      password: "123456789",
+      image:
+        "https://pbs.twimg.com/profile_images/1677677662570000384/IuKiZeNT_400x400.jpg",
+      posts: [{ id: "degea1" }],
+    },
+    {
+      id: "garnacho",
+      name: "Alejandro Garnacho",
+      email: "alejandrogarnacho@gmail.com",
+      password: "123456789",
+      image:
+        "https://pbs.twimg.com/profile_images/1635048434569822210/UzHEV8t0_400x400.jpg",
+      posts: [{ id: "garnacho1" }],
+    },
   ],
   friends: [],
   isFriend: undefined,

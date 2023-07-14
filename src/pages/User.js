@@ -14,71 +14,76 @@ import {
 } from "../app/store/users-actions";
 import { usersActions } from "../app/store/users-slice";
 
-const DUMMY_POSTS = [
-  {
-    id: "degea1",
-    title: "Farewell",
-    content:
-      "Manchester will always be in my heart, Manchester has shaped me and will never leave me.We’ve seen it all. 🤘🏼❤️",
-    image: "https://pbs.twimg.com/media/F0hJx4qXsAEFMbK?format=jpg&name=large",
-    creator: {
-      id: "degea",
-      name: "David De Gea",
-      email: "daviddegea@gmail.com",
-      password: "123456789",
-      image:
-        "https://pbs.twimg.com/profile_images/1677677662570000384/IuKiZeNT_400x400.jpg",
-    },
-    comments: [],
-  },
-  {
-    id: "garnacho1",
-    title: "19",
-    content: "19🥳👶🏼",
-    image: "https://pbs.twimg.com/media/Fz9LrUxX0AABTYT?format=jpg&name=large",
-    creator: {
-      id: "garnacho",
-      name: "Alejandro Garnacho",
-      email: "alejandrogarnacho@gmail.com",
-      password: "123456789",
-      image:
-        "https://pbs.twimg.com/profile_images/1635048434569822210/UzHEV8t0_400x400.jpg",
-    },
-    comments: [],
-  },
-];
+// const DUMMY_POSTS = [
+//   {
+//     id: "degea1",
+//     title: "Farewell",
+//     content:
+//       "Manchester will always be in my heart, Manchester has shaped me and will never leave me.We’ve seen it all. 🤘🏼❤️",
+//     image: "https://pbs.twimg.com/media/F0hJx4qXsAEFMbK?format=jpg&name=large",
+//     creator: {
+//       id: "degea",
+//       name: "David De Gea",
+//       email: "daviddegea@gmail.com",
+//       password: "123456789",
+//       image:
+//         "https://pbs.twimg.com/profile_images/1677677662570000384/IuKiZeNT_400x400.jpg",
+//     },
+//     comments: [],
+//   },
+//   {
+//     id: "garnacho1",
+//     title: "19",
+//     content: "19🥳👶🏼",
+//     image: "https://pbs.twimg.com/media/Fz9LrUxX0AABTYT?format=jpg&name=large",
+//     creator: {
+//       id: "garnacho",
+//       name: "Alejandro Garnacho",
+//       email: "alejandrogarnacho@gmail.com",
+//       password: "123456789",
+//       image:
+//         "https://pbs.twimg.com/profile_images/1635048434569822210/UzHEV8t0_400x400.jpg",
+//     },
+//     comments: [],
+//   },
+// ];
 
-const DUMMY_USERS = [
-  {
-    id: "degea",
-    name: "David De Gea",
-    email: "daviddegea@gmail.com",
-    password: "123456789",
-    image:
-      "https://pbs.twimg.com/profile_images/1677677662570000384/IuKiZeNT_400x400.jpg",
-  },
-  {
-    id: "garnacho",
-    name: "Alejandro Garnacho",
-    email: "alejandrogarnacho@gmail.com",
-    password: "123456789",
-    image:
-      "https://pbs.twimg.com/profile_images/1635048434569822210/UzHEV8t0_400x400.jpg",
-  },
-];
+// const DUMMY_USERS = [
+//   {
+//     id: "degea",
+//     name: "David De Gea",
+//     email: "daviddegea@gmail.com",
+//     password: "123456789",
+//     image:
+//       "https://pbs.twimg.com/profile_images/1677677662570000384/IuKiZeNT_400x400.jpg",
+//   },
+//   {
+//     id: "garnacho",
+//     name: "Alejandro Garnacho",
+//     email: "alejandrogarnacho@gmail.com",
+//     password: "123456789",
+//     image:
+//       "https://pbs.twimg.com/profile_images/1635048434569822210/UzHEV8t0_400x400.jpg",
+//   },
+// ];
 
 let isInitial = true;
 const User = (props) => {
   const id = useParams().id;
-
-  const dummyUser = DUMMY_USERS.find((u) => u.id === id);
-  const dummyPosts = DUMMY_POSTS.filter((p) => p.creator.id === id);
+  // const dummyUser = DUMMY_USERS.find((u) => u.id === id);
+  // const dummyPosts = DUMMY_POSTS.filter((p) => p.creator.id === id);
 
   const [createNewPost, setCreateNewPost] = useState(false);
   const { userId, token } = useSelector((state) => state.auth);
   const posts = useSelector((state) => state.posts.posts);
-  const user = useSelector((state) => state.users.users);
+  const users = useSelector((state) => state.users.users);
+  const auth = useSelector((state) => state.auth);
   const { friends, isFriend } = useSelector((state) => state.users);
+
+  const userPosts = posts.filter((p) => p.creator.id === id);
+  const userInfo = users.filter((u) => u.id === id);
+  console.log(userInfo);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserDataByUserId(id));
@@ -118,7 +123,21 @@ const User = (props) => {
 
   return (
     <div className="card">
-      {dummyUser ? (
+      {userInfo &&
+        userInfo.map((u) => (
+          <Stat
+            image={u.image}
+            posts={u.posts}
+            friends={u.friends}
+            name={u.name}
+            addFriend={addFriendHandler}
+            deleteFriend={deleteFriendHandler}
+            userPageId={id}
+            isFriend={isFriend}
+            isLoggedIn={auth.isLoggedIn}
+          />
+        ))}
+      {/* {dummyUser ? (
         <Stat
           image={dummyUser.image}
           posts={dummyUser.posts}
@@ -140,7 +159,7 @@ const User = (props) => {
           userPageId={id}
           isFriend={isFriend}
         />
-      )}
+      )} */}
       {id === userId && (
         <React.Fragment>
           <div className="text-center">
@@ -153,8 +172,8 @@ const User = (props) => {
           {createNewPost && <PostForm submitHandler={handleSubmitHandler} />}
         </React.Fragment>
       )}
-      <PostList posts={posts} className="mt-4" />
-      <PostList posts={dummyPosts} className="mt-4" />
+      {userPosts && <PostList posts={userPosts} className="mt-4" />}
+      {/* <PostList posts={dummyPosts} className="mt-4" /> */}
     </div>
   );
 };

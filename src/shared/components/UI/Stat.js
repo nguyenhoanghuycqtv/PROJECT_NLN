@@ -63,20 +63,24 @@ const Stat = (props) => {
         </div>
         <div className="w-full">
           <div className="w-6/12">
-            {userId !== props.userPageId && !props.isFriend && (
-              <button onClick={props.addFriend} className="btn btn-success">
-                <span className="font-extrabold text-4lg inline-block">
-                  Add Friend
-                </span>
-              </button>
-            )}
-            {userId !== props.userPageId && props.isFriend && (
-              <button onClick={props.deleteFriend} className="btn btn-error">
-                <span className="font-extrabold text-4lg inline-block">
-                  Unfriend
-                </span>
-              </button>
-            )}
+            {props.isLoggedIn &&
+              userId !== props.userPageId &&
+              !props.isFriend && (
+                <button onClick={props.addFriend} className="btn btn-success">
+                  <span className="font-extrabold text-4lg inline-block">
+                    Add Friend
+                  </span>
+                </button>
+              )}
+            {props.isLoggedIn &&
+              userId !== props.userPageId &&
+              props.isFriend && (
+                <button onClick={props.deleteFriend} className="btn btn-error">
+                  <span className="font-extrabold text-4lg inline-block">
+                    Unfriend
+                  </span>
+                </button>
+              )}
           </div>
         </div>
       </div>
